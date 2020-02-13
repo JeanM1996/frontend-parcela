@@ -2,11 +2,25 @@ import React, {Component} from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import LocationPicker from 'react-location-picker';
 
+
+const defaultPosition = {
+  lat: -4.0003167,
+  lng: -79.2287213
+};
 
 export default class RegisterParcela extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      address: "Loja,Ecuador",
+      position: {},
+      defaultPosition: defaultPosition
+    };
+
+    // Bind
+    this.handleLocationChange = this.handleLocationChange.bind(this);
 
     // Setting up functions
     this.onChangeAgricultorName = this.onChangeAgricultorName.bind(this);
@@ -21,6 +35,11 @@ export default class RegisterParcela extends Component {
       lugar: ''
     }
   }
+  handleLocationChange ({ position, address }) {
+
+    // Set new location
+    this.setState({ position, address });
+  }
 
   onChangeAgricultorName(e) {
     this.setState({agricultor: e.target.value})
@@ -31,10 +50,20 @@ export default class RegisterParcela extends Component {
   }
 
   onChangeLugar(e) {
-    this.setState({lugar: e.target.value})
+    this.setState({lugar: this.state.address})
   }
 
- 
+   componentDidMount () {
+    navigator && navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      this.setState({
+        defaultPosition: {
+          lat: latitude,
+          lng: longitude
+        }
+      });
+    });
+  }
 
   onSubmit(e) {
     e.preventDefault()
@@ -62,11 +91,17 @@ export default class RegisterParcela extends Component {
           <Form.Control type="text" value={this.state.extension} onChange={this.onChangeExtension}/>
         </Form.Group>
 
+        <Form.Label>Lugar</Form.Label>
+        <LocationPicker
+            containerElement={ <div style={ {height: '100%'} } /> }
+            mapElement={ <div style={ {height: '400px'} } /> }
+            defaultPosition={this.state.defaultPosition}
+            radius={-1}
+            onChange={this.handleLocationChange}
+          />
 
-        
         <Form.Group controlId="Name">
-          <Form.Label>Lugar</Form.Label>
-          <Form.Control type="date" value={this.state.lugar} onChange={this.onChangeLugar}/>
+          <Form.Control type="text" value={this.state.lugar} onChange={this.onChangeLugar}/>
         </Form.Group>
 
 
