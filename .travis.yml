@@ -1,0 +1,19 @@
+sudo: required
+services:
+  - docker
+script:
+  - docker build -t frontparcela .
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+  - docker tag frontparcela $DOCKER_USER/frontparcela:$TRAVIS_BUILD_NUMBER
+  - docker push $DOCKER_USER/frontparcela:$TRAVIS_BUILD_NUMBER
+  - docker tag frontparcela $DOCKER_USER/frontparcela:latest
+  - docker push $DOCKER_USER/frontparcela:latest
+  
+deploy:
+  provider: heroku
+  api_key: 
+    secure: $HEROKU_API_KEY
+  app: frontend-parcela
+  on:
+    repo: JeanM1996/frontend-parcela
