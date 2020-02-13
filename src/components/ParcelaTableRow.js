@@ -16,10 +16,8 @@ export default class StudentTableRow extends Component {
         return (
             <tr>
                 <td>{this.props.obj.agricultor}</td>
-                <td>{this.props.obj.parcela}</td>
-                <td>{this.props.obj.fecha}</td>
-		<td>{this.props.obj.especie}</td>
-
+                <td>{this.props.obj.extension}</td>
+                <td>{this.props.obj.lugar}</td>
             </tr>
         );
     }

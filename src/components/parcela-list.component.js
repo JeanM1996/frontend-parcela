@@ -39,7 +39,6 @@ export default class ParcelaList extends Component {
             <th>Agricultor</th>
             <th>Extension</th>
             <th>Lugar</th>
-	    <th>Especie</th>
           </tr>
         </thead>
         <tbody>
