@@ -50,7 +50,7 @@ function App() {
               <Switch>
                 <Route exact path='/' component={Registerparcela} />
                 <Route path="/register-parcela" component={Registerparcela} />
-                <Route path="/parcela-list" component={parcelaList} />
+                <Route path="/parcela-list" component={ParcelaList} />
               </Switch>
             </div>
           </Col>
