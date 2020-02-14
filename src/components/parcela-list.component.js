@@ -26,7 +26,7 @@ export default class ParcelaList extends Component {
 
   DataTable() {
     return this.state.parcelas.map((res, i) => {
-      return <parcelaTableRow obj={res} key={i} />;
+      return <ParcelaTableRow obj={res} key={i} />;
     });
   }
 
